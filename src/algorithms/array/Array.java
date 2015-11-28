@@ -1,4 +1,4 @@
-package arrays;
+package algorithms.array;
 
 public class Array 
 {
@@ -10,6 +10,13 @@ public class Array
 	public static int Max(Comparable[] array, int lowerBound, int upperBound)
 	{
 		return MinMax(array, lowerBound, upperBound, false);
+	}
+	
+	public static void Swap(Comparable[] array, int i, int j)
+	{
+		Comparable temp = array[i];
+		array[i] = array[j];
+		array[j] = temp;
 	}
 	
 	private static int MinMax(Comparable[] array, int lowerBound, int upperBound, boolean minimum)

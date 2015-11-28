@@ -1,10 +1,22 @@
 package sorting;
 
-import arrays.Array;
+import algorithms.array.Array;
+import data.Heap;
 
 public class Sorting 
 {
-
+	///
+	/// Worst: 		O(nlogn)
+	/// Best: 		O(nlogn)
+	/// Average: 	O(nlogn)
+	/// Properties:
+	///		In Place
+	///		Not Stable
+	public static void HeapSort(Comparable[] array)
+	{
+		Heap.HeapSort(array);;
+	}
+	
 	///
 	/// Worst: 		O(nlogn)
 	/// Best: 		O(nlogn)
@@ -14,11 +26,22 @@ public class Sorting
 	///		Not Stable
 	public static void MergeSort(Comparable[] array)
 	{
-		for(int i = 0; i < array.length; i++)
+		MergeSort(array, 0, array.length);
+	}
+	
+	private static void MergeSort(Comparable[] array, int start, int end)
+	{
+		if(start == end)
 		{
-			int maxIndex = Array.Max(array, 0, i);
-			Swap(array, i, maxIndex);
+			return;
 		}
+		
+		int pivot = (start + end) / 2;
+		
+		MergeSort(array, start, pivot);
+		MergeSort(array, pivot, end);
+		
+		Merge(array, start, pivot, end);
 	}
 	
 	///
@@ -33,7 +56,7 @@ public class Sorting
 		for(int i = 0; i < array.length; i++)
 		{
 			int maxIndex = Array.Max(array, 0, i);
-			Swap(array, i, maxIndex);
+			Array.Swap(array, i, maxIndex);
 		}
 	}
 	
@@ -53,7 +76,7 @@ public class Sorting
 			{
 				if(array[i].compareTo(array[j]) == 1)
 				{
-					Swap(array, i, j);
+					Array.Swap(array, i, j);
 				}
 			}
 		}
@@ -82,8 +105,12 @@ public class Sorting
 		}
 	}
 	
-	private static void Merge()
+	/// merges array[start:middle] and array[middle:end]
+	/// start <= middle < end and array[start:middle] and array[middle:end] ar ein sorted order
+	private static void Merge(Comparable[] array, int start, int middle, int end)
 	{
+		
+		
 		
 	}
 	
@@ -97,12 +124,5 @@ public class Sorting
 		}
 		
 		array[newPos] = valueToMove;
-	}
-	
-	private static void Swap(Comparable[] array, int i, int j)
-	{
-		Comparable temp = array[i];
-		array[i] = array[j];
-		array[j] = temp;
 	}
 }
