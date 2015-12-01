@@ -109,9 +109,57 @@ public class Sorting
 	/// start <= middle < end and array[start:middle] and array[middle:end] ar ein sorted order
 	private static void Merge(Comparable[] array, int start, int middle, int end)
 	{
+		Comparable[] left = new Comparable[middle - start];
+		Comparable[] right = new Comparable[end - middle];
 		
+		int j = 0;
+		for(int i = start; i < middle; i++)
+		{
+			left[j] = array[i];
+			j++;
+		}
 		
+		j = 0;
+		for(int i = middle; i < end; i++)
+		{
+			right[j] = array[i];
+			j++;
+		}
 		
+		int i = 0;
+		j = 0;
+		Comparable leftVal, rightVal;
+		while(i + j < end - start)
+		{
+			if (i > left.length)
+			{
+				leftVal = Integer.MAX_VALUE;
+			}
+			else
+			{
+				leftVal = left[i];
+			}
+			
+			if (i > right.length)
+			{
+				rightVal = Integer.MAX_VALUE;
+			}
+			else
+			{
+				rightVal = right[i];
+			}
+			
+			if (leftVal.compareTo(rightVal) == 1)
+			{
+				array[start + i + j] = right[j];
+				j++;
+			}
+			else
+			{
+				array[start + i + j] = left[i];
+				i++;
+			}
+		}
 	}
 	
 	private static void Insert(Comparable[] array, int oldPos, int newPos)

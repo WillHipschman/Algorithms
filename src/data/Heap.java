@@ -13,6 +13,46 @@ public class Heap implements IHeap<Comparable>{
 		this.array = array;
 	}
 
+	
+	public void IncreaseValue(int index, Comparable value) throws Exception
+	{
+		if(!isIndexWithinArray(index))
+		{
+			throw new IndexOutOfBoundsException();
+		}
+		
+		if(value.compareTo(array[index]) < 1)
+		{
+			throw new Exception("New value must be larger than old value");
+		}
+		
+		array[index] = value;
+		
+		int parentIndex = this.parentIndex(index);
+		while(index > 0 && array[index].compareTo(array[parentIndex]) == 1)
+		{
+			Array.Swap(array, index, parentIndex);
+			index = parentIndex;
+			parentIndex = this.parentIndex(index);
+		}
+	}
+	
+	public Comparable RemoveHead() throws IndexOutOfBoundsException
+	{
+		if(!isIndexWithinArray(0))
+		{
+			throw new IndexOutOfBoundsException();
+		}
+		
+		Comparable head = this.Head();
+		
+		array[0] = array[this.Size() - 1];
+		this.size = this.Size() - 1;
+		this.maxHeapify(0);
+		
+		return head;
+	}
+	
 	@Override
 	public Comparable Head() {
 		return isIndexWithinArray(0) ? array[0] : null;
