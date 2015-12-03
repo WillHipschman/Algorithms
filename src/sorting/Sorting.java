@@ -4,7 +4,29 @@ import algorithms.array.Array;
 import data.Heap;
 
 public class Sorting 
-{
+{	
+	public static void CountingSort(int[] array, int numberOfDistinctElementTypes)
+	{
+		int[] counts = new int[numberOfDistinctElementTypes];
+		
+		for(int i = 0; i < array.length; i++)
+		{
+			counts[array[numberOfDistinctElementTypes]] ++;
+		}
+		
+		int k = 0;
+		for(int i = 0; i < array.length; i ++)
+		{
+			for(int j = 0;  j < counts[k]; j ++)
+			{
+				array[i] = counts[k];
+			}
+			
+			k ++;
+		}
+	}
+	
+	
 	///
 	/// Worst: 		O(nlogn)
 	/// Best: 		O(nlogn)

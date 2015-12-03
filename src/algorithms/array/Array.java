@@ -2,6 +2,41 @@ package algorithms.array;
 
 public class Array 
 {
+	///
+	/// O(n)
+	/// Returns the sum value of the maximum consecutive subarray
+	/// that cross the midpoint of an array
+	///
+	private static int FindMaximumCrossingSubArray(int[] array)
+	{
+		int mid = array.length / 2;
+		int leftSum = Integer.MIN_VALUE;
+		int sum = 0;
+		
+		for(int i = mid; i >= 0; i--)
+		{
+			sum = sum + array[i];
+			if(sum > leftSum)
+			{
+				leftSum = sum;
+			}
+		}
+		
+		int rightSum = Integer.MIN_VALUE;
+		sum = 0;
+		
+		for(int i = mid + 1; i < array.length; i++)
+		{
+			sum = sum + array[i];
+			if(sum > rightSum)
+			{
+				rightSum = sum;
+			}
+		}
+		
+		return leftSum + rightSum;
+	}
+	
 	public static int Min(Comparable[] array, int lowerBound, int upperBound)
 	{
 		return MinMax(array, lowerBound, upperBound, false);
