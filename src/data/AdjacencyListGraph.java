@@ -1,26 +1,27 @@
 package data;
 
-public class AdjacencyListGraph implements Graph{
+public class AdjacencyListGraph<T> implements Graph<T>{
 
-	public GraphNode<Integer>[] adjList;
+	public GraphNode<T>[] nodes;
 	
-	public AdjacencyListGraph(GraphNode<Integer>[] adjList)
+	public AdjacencyListGraph(GraphNode<T>[] nodes)
 	{
-		this.adjList = adjList;
+		this.nodes = nodes;
 	}
 	
+	//O(E) = O(V^2)
 	public boolean IsEdge(int u, int v)
 	{
-		if(adjList.length < u)
+		if(nodes.length < u)
 		{
 			return false;
 		}
 		
-		GraphNode<Integer> current = adjList[u];
+		GraphNode<T> current = nodes[u];
 		
 		while(current != null)
 		{
-			if(current.data == v)
+			if(current.vertex == v)
 			{
 				return true;
 			}

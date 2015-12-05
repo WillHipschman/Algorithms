@@ -1,40 +1,74 @@
 package algorithms.graph;
 
-import java.util.ArrayList;
 import data.AdjacencyListGraph;
+import data.AdjacencyMatrixGraph;
+import data.GraphNode;
 import data.Node;
 import data.Queue;
 
 public class Search {
 
-	public static void BFS(AdjacencyListGraph graph, Integer sourceVertexIndex)
+	public static <T> void BFS(AdjacencyMatrixGraph<T> graph, Integer sourceVertexIndex)
 	{
-		Queue<Node<Integer>> toProcess = new Queue<Node<Integer>>();
+		Queue<GraphNode<T>> toProcess = new Queue<GraphNode<T>>();
 		
-		if(graph.adjList.length < sourceVertexIndex)
+		if(graph.nodes.length < sourceVertexIndex)
+		{
+			throw new IndexOutOfBoundsException();
+		}	
+		
+		graph.nodes[sourceVertexIndex][sourceVertexIndex].distanceFromSource = 0;
+		graph.nodes[sourceVertexIndex][sourceVertexIndex].visited = true;
+		
+		toProcess.Enqueue(graph.nodes[sourceVertexIndex][sourceVertexIndex]);
+	
+		while(!toProcess.IsEmpty())
+		{
+			GraphNode<T> prev = toProcess.Dequeue();
+			
+			for(int i = 0; i < graph.nodes.length; i ++)
+			{
+				GraphNode<T> current = graph.nodes[prev.vertex][i];
+				
+				if(current.visited != true)
+				{
+					current.distanceFromSource = prev.distanceFromSource + 1;
+					current.visited = true;
+					toProcess.Enqueue(current);
+				}
+			}
+		}
+	}
+	
+	public static <T> void BFS(AdjacencyListGraph<T> graph, Integer sourceVertexIndex)
+	{
+		Queue<GraphNode<T>> toProcess = new Queue<GraphNode<T>>();
+		
+		if(graph.nodes.length < sourceVertexIndex)
 		{
 			throw new IndexOutOfBoundsException();
 		}
 	
-		graph.adjList[sourceVertexIndex].distanceFromSource = 0;
-		toProcess.Enqueue(graph.adjList[sourceVertexIndex]);
+		graph.nodes[sourceVertexIndex].distanceFromSource = 0;
+		toProcess.Enqueue(graph.nodes[sourceVertexIndex]);
 	
 		while(!toProcess.IsEmpty())
 		{
-			Node<Integer> current = toProcess.Dequeue();
+			GraphNode<T> prev = toProcess.Dequeue();
+			Node<GraphNode<T>> current = prev.adjList.head;
 			
 			while(current != null)
 			{
-				if(current.visited != true)
+				if(current.data.visited != true)
 				{
-					current.distanceFromSource = source.distanceFromSource + 1;
-					toProcess.Enqueue(current);
+					current.data.distanceFromSource = prev.distanceFromSource + 1;
+					current.data.visited = true;
+					toProcess.Enqueue(current.data);
 				}
 				current = current.next;
 			}
 			
-			source.visited = true;
-			source = toProcess.Dequeue();
+			prev.visited = true;
 		}
 	}
 }

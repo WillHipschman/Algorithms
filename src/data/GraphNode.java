@@ -1,11 +1,16 @@
 package data;
 
-public class GraphNode<T> extends Node<T>
+public class GraphNode<T>
 {
-	public int Vertex = -1;
+	public T data;
+	public boolean visited = false;
+	public Integer distanceFromSource = Integer.MAX_VALUE;
+	public LinkedList<GraphNode<T>> adjList;
+	public int vertex;
 	
-	public GraphNode(Node<T> previous, Node<T> next, T data, int vertex){
-		super(previous, next, data);
-		this.Vertex = vertex;
+	public GraphNode(T data, LinkedList<GraphNode<T>> adjList, int vertex){
+		this.data = data;
+		this.adjList = adjList;
+		this.vertex = vertex;
 	}
 }
