@@ -17,7 +17,9 @@ public class LinkedList<T> {
 	//O(1)
 	public void InsertHead(T data)
 	{
-		Node<T> n = new Node<T>(null, this.head, data);
+		Node<T> n = new Node<T>(data);
+		n.previous = null;
+		n.next = this.head;
 		
 		if(this.head != null)
 		{
@@ -35,7 +37,9 @@ public class LinkedList<T> {
 	//O(1)
 	public void InsertTail(T data)
 	{
-		Node<T> n = new Node<T>(this.tail, null, data);
+		Node<T> n = new Node<T>(data);
+		n.previous = this.tail;
+		n.next = null;
 		
 		if(this.tail != null)
 		{

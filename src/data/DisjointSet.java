@@ -1,10 +1,13 @@
 package data;
 
-public class DisjointSet<K>
+public class DisjointSet<T>
 {
-	public K val;
-	public DisjointSet(K val)
+	public T val;
+	public DisjointSet<T> parent;
+	
+	public DisjointSet(T val)
 	{
 		this.val = val;
+		this.parent = this;
 	}
 }

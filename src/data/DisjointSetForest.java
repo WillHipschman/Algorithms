@@ -7,13 +7,23 @@ public class DisjointSetForest<T> {
 		return new DisjointSet<T>(val);
 	}
 	
-	public DisjointSetForest<T> FindSet(T val)
+	public DisjointSet<T> FindSet(DisjointSet<T> val)
 	{
-		return null;
+		if(val.parent != val)
+		{
+			return FindSet(val.parent);
+		}
+		
+		return val;
 	}
 	
-	public DisjointSetForest<T> Union(T set1, T set2)
+	public void Union(DisjointSet<T> val1, DisjointSet<T> val2)
 	{
-		return null;
+		Link(this.FindSet(val1), this.FindSet(val2));
+	}
+	
+	private void Link(DisjointSet<T> val1, DisjointSet<T> val2)
+	{
+		
 	}
 }
