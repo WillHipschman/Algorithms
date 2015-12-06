@@ -1,22 +1,42 @@
 package datastructures.graph;
 
-public class AdjacencyMatrixGraph<T> {
+public class AdjacencyMatrixGraph<T> implements Graph<T>{
 	
-	public GraphNode<T>[][] nodes;
+	public boolean[][] edges;
 	
-	public AdjacencyMatrixGraph(GraphNode<T>[][] nodes)
+	private GraphNode<T>[] vertices;
+	private GraphType type = GraphType.UNKNOWN;
+	
+	// We assume edges is a square matrix
+	public AdjacencyMatrixGraph(GraphNode<T>[] vertices, boolean[][] edges)
 	{
-		this.nodes = nodes;
+		this.vertices = vertices;
+		this.edges = edges;
+	}
+	
+	public GraphNode<T>[] GetVertices()
+	{
+		return vertices;
+	}
+	
+	public GraphType GetType()
+	{
+		return type;
+	}
+	
+	public void SetType(GraphType type)
+	{
+		this.type = type;
 	}
 	
 	// O(1)
 	public boolean IsEdge(int u, int v)
 	{
-		if(nodes.length < u)
+		if(edges.length < u)
 		{
 			return false;
 		}
 		
-		return nodes[u][v] != null;
+		return edges[u][v];
 	}
 }

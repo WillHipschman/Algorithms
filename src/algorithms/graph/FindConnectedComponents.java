@@ -12,28 +12,26 @@ public class FindConnectedComponents {
 	public static <T> DisjointSetForest<GraphNode<T>> ConnectedComponent(AdjacencyMatrixGraph<T> g)
 	{
 		DisjointSetForest<GraphNode<T>> set = new DisjointSetForest<GraphNode<T>>();
-		DisjointSet[] sets = new DisjointSet[g.nodes.length];
+		DisjointSet[] sets = new DisjointSet[g.GetVertices().length];
 		
-		for(int i = 0; i < g.nodes.length; i++)
+		for(int i = 0; i < g.GetVertices().length; i++)
 		{
-			sets[i] = set.MakeSet(g.nodes[i][i]);
+			sets[i] = set.MakeSet(g.GetVertices()[i]);
 		}
 		
-		for(int i = 0; i < g.nodes.length; i++)
+		for(int i = 0; i < g.GetVertices().length; i++)
 		{
-			for(int j =0; j < g.nodes.length; j++)
+			for(int j =0; j < g.GetVertices().length; j++)
 			{
-				if(i == j)
+				if(i != j && g.edges[i][j] == true)
 				{
-					continue;
-				}
-				
-				DisjointSet<GraphNode<T>> set1 = set.FindSet(sets[i]);
-				DisjointSet<GraphNode<T>> set2 = set.FindSet(sets[j]);
-				
-				if(FindConnectedComponents.SameComponent(set, set1, set2));
-				{
-					set.Union(set1, set2);
+					DisjointSet<GraphNode<T>> set1 = set.FindSet(sets[i]);
+					DisjointSet<GraphNode<T>> set2 = set.FindSet(sets[j]);
+					
+					if(FindConnectedComponents.SameComponent(set, set1, set2));
+					{
+						set.Union(set1, set2);
+					}
 				}
 			}
 		}

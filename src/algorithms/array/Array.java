@@ -7,7 +7,7 @@ public class Array
 	/// Returns the sum value of the maximum consecutive subarray
 	/// that cross the midpoint of an array
 	///
-	private static int FindMaximumCrossingSubArray(int[] array)
+	public static int FindMaximumCrossingSubArray(int[] array)
 	{
 		int mid = array.length / 2;
 		int leftSum = Integer.MIN_VALUE;
