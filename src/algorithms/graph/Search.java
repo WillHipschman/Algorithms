@@ -1,10 +1,10 @@
 package algorithms.graph;
 
-import data.AdjacencyListGraph;
-import data.AdjacencyMatrixGraph;
-import data.GraphNode;
-import data.Node;
-import data.Queue;
+import datastructures.graph.AdjacencyListGraph;
+import datastructures.graph.AdjacencyMatrixGraph;
+import datastructures.graph.GraphNode;
+import datastructures.list.Node;
+import datastructures.list.Queue;
 
 public class Search {
 

@@ -1,9 +1,9 @@
 package algorithms.graph;
 
-import data.AdjacencyMatrixGraph;
-import data.DisjointSet;
-import data.DisjointSetForest;
-import data.GraphNode;
+import datastructures.graph.AdjacencyMatrixGraph;
+import datastructures.graph.GraphNode;
+import datastructures.set.DisjointSet;
+import datastructures.set.DisjointSetForest;
 
 public class FindConnectedComponents {
 

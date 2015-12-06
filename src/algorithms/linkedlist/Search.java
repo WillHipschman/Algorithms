@@ -1,6 +1,7 @@
 package algorithms.linkedlist;
 
-import data.*;
+import datastructures.list.LinkedList;
+import datastructures.list.Node;
 
 public class Search {
 
