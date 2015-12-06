@@ -1,12 +1,9 @@
 package datastructures.tree;
 
-public interface Tree<T extends Comparable<T>> {
+public interface Tree {
 
-	public boolean Search();
-	public T Minimum();
-	public T Maximum();
-	public void Insert(T t);
-	public void Delete(T t);
+	public TreeNode Search(int key);
+	public void Insert(TreeNode t);
+	public void Delete(TreeNode t);
 	public TreeNode Root();
-	
 }

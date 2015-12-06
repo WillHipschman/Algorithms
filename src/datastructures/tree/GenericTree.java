@@ -1,5 +1,8 @@
 package datastructures.tree;
 
+import algorithms.tree.Traversals;
+import util.commands.FindTreeNode;
+
 public class GenericTree implements Tree{
 
 	public TreeNode root;
@@ -10,31 +13,25 @@ public class GenericTree implements Tree{
 	}
 
 	@Override
-	public boolean Search() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public Comparable Minimum() {
-		// TODO Auto-generated method stub
+	public TreeNode Search(int key) {
 		return null;
 	}
-
-	@Override
-	public Comparable Maximum() {
-		// TODO Auto-generated method stub
-		return null;
+	
+	public boolean Contains(TreeNode toFind) {
+		
+		FindTreeNode action = new FindTreeNode(toFind);
+		Traversals.PreOrderTraversal(this, action);
+		return action.Found;
 	}
 
 	@Override
-	public void Insert(Comparable t) {
+	public void Insert(TreeNode t) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void Delete(Comparable t) {
+	public void Delete(TreeNode t) {
 		// TODO Auto-generated method stub
 		
 	}
