@@ -2,8 +2,6 @@ package datastructures.graph;
 
 import java.util.ArrayList;
 
-import datastructures.list.Node;
-
 public class AdjacencyMatrixGraph<T> implements Graph<T>{
 	
 	public Integer[][] edges;
@@ -58,7 +56,7 @@ public class AdjacencyMatrixGraph<T> implements Graph<T>{
 		{
 			for(int j = 0; i < this.vertices.length; j++)
 			{
-				edgeList.add(new Edge(this.vertices[i], this.vertices[j], edges[i][j]));
+				edgeList.add(new Edge(this.vertices[i].vertex, this.vertices[j].vertex, edges[i][j]));
 			}
 		}
 	}

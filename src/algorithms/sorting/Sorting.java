@@ -1,7 +1,7 @@
 package algorithms.sorting;
 
 import algorithms.array.Array;
-import datastructures.tree.Heap;
+import datastructures.tree.GenericHeap;
 
 public class Sorting 
 {	
@@ -36,7 +36,7 @@ public class Sorting
 	///		Not Stable
 	public static void HeapSort(Comparable[] array)
 	{
-		Heap.HeapSort(array);;
+		GenericHeap.HeapSort(array);;
 	}
 	
 	///

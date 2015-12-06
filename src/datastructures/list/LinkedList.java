@@ -1,12 +1,23 @@
 package datastructures.list;
 
+import java.util.Collection;
+
 public class LinkedList<T> {
 
 	public Node<T> head = null;
 	public Node<T> tail = null;
 	
-	public LinkedList(){
-		
+	public LinkedList()
+	{
+	
+	}
+	
+	public LinkedList(Collection<T> list)
+	{
+		for(T t : list)
+		{
+			this.InsertHead(t);
+		}
 	}
 	
 	public boolean IsEmpty()

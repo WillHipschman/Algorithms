@@ -2,8 +2,6 @@ package datastructures.graph;
 
 import java.util.ArrayList;
 
-import datastructures.list.Node;
-
 public class AdjacencyListGraph<T> implements Graph<T>{
 
 	private Vertex<T>[] vertices;
@@ -63,11 +61,9 @@ public class AdjacencyListGraph<T> implements Graph<T>{
 		{
 			Vertex<T> vertex = this.vertices[i];
 			
-			Node<Vertex<T>> current = vertex.adjList.head;
-			while(current != null)
+			for(Integer key : vertex.adjMap.keySet())
 			{
-				edges.add(new Edge(vertex, current.data, current.data.weight));
-				current = current.next;
+				edges.add(new Edge(vertex.vertex, vertex.adjMap.get(key), key));
 			}
 		}
 	}

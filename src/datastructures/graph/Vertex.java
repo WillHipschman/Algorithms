@@ -1,8 +1,10 @@
 package datastructures.graph;
 
+import java.util.HashMap;
+
 import datastructures.list.LinkedList;
 
-public class Vertex<T>
+public class Vertex<T> implements Comparable<Vertex<T>>
 {
 	public T data;
 	public VisitedState state = VisitedState.UNDISCOVERED;
@@ -16,11 +18,18 @@ public class Vertex<T>
 	
 	//only used in AdjList
 	public int weight = 0;
-	public LinkedList<Vertex<T>> adjList;
+	public HashMap<Integer, Integer> adjMap;
+	public LinkedList<Integer> adjList;
 
-	public Vertex(T data, LinkedList<Vertex<T>> adjList, int vertex){
+	public Vertex(T data, HashMap<Integer, Integer> adjMap, int vertex){
 		this.data = data;
-		this.adjList = adjList;
+		this.adjMap = adjMap;
+		this.adjList = new LinkedList<Integer>(adjMap.values());
 		this.vertex = vertex;
+	}
+	
+	public int compareTo(Vertex<T> other)
+	{
+		return this.distanceFromSource - other.distanceFromSource;
 	}
 }

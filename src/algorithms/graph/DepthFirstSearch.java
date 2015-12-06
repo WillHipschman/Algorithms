@@ -81,7 +81,7 @@ public class DepthFirstSearch {
 
 		visitAction.Run(node);;
 		
-		Vertex<T> current = node.adjList.head.data;
+		Vertex<T> current = graph.GetVertices()[node.adjList.head.data];
 		while(current != null)
 		{
 			if(current.state == VisitedState.UNDISCOVERED)

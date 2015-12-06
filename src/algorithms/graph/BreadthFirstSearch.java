@@ -47,15 +47,15 @@ public class BreadthFirstSearch {
 		while(!toProcess.IsEmpty())
 		{
 			Vertex<T> prev = toProcess.Dequeue();
-			Node<Vertex<T>> current = prev.adjList.head;
+			Node<Integer> current = prev.adjList.head;
 			
 			while(current != null)
 			{
-				if(current.data.state != VisitedState.FINISHED)
+				if(graph.GetVertices()[current.data].state != VisitedState.FINISHED)
 				{
-					visit.Run(current.data);
-					current.data.state = VisitedState.FINISHED;
-					toProcess.Enqueue(current.data);
+					visit.Run(graph.GetVertices()[current.data]);
+					graph.GetVertices()[current.data].state = VisitedState.FINISHED;
+					toProcess.Enqueue(graph.GetVertices()[current.data]);
 				}
 				current = current.next;
 			}

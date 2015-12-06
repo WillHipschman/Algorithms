@@ -1,13 +1,12 @@
 package datastructures.graph;
 
-@SuppressWarnings("rawtypes")
 public class Edge implements Comparable<Edge>{
 
 	public int Weight;
-	public Vertex Start;
-	public Vertex End;
+	public int Start;
+	public int End;
 	
-	public Edge(Vertex start, Vertex end, int weight)
+	public Edge(int start, int end, int weight)
 	{
 		this.Weight = weight;
 		this.Start = start;
