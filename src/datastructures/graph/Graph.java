@@ -1,8 +1,11 @@
 package datastructures.graph;
 
+import java.util.ArrayList;
+
 public interface Graph<T> {
 	
-	public GraphNode<T>[] GetVertices();
+	public Vertex<T>[] GetVertices();
+	public ArrayList<Edge> GetEdges();
 	
 	public GraphType GetType();
 	public void SetType(GraphType type);

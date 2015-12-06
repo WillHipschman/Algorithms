@@ -1,22 +1,34 @@
 package datastructures.graph;
 
+import java.util.ArrayList;
+
+import datastructures.list.Node;
+
 public class AdjacencyMatrixGraph<T> implements Graph<T>{
 	
-	public boolean[][] edges;
+	public Integer[][] edges;
 	
-	private GraphNode<T>[] vertices;
+	private Vertex<T>[] vertices;
+	private ArrayList<Edge> edgeList;
 	private GraphType type = GraphType.UNKNOWN;
 	
 	// We assume edges is a square matrix
-	public AdjacencyMatrixGraph(GraphNode<T>[] vertices, boolean[][] edges)
+	public AdjacencyMatrixGraph(Vertex<T>[] vertices, Integer[][] edges)
 	{
 		this.vertices = vertices;
 		this.edges = edges;
+		
+		this.SetupEdges();
 	}
 	
-	public GraphNode<T>[] GetVertices()
+	public Vertex<T>[] GetVertices()
 	{
 		return vertices;
+	}
+	
+	public ArrayList<Edge> GetEdges()
+	{
+		return edgeList;
 	}
 	
 	public GraphType GetType()
@@ -37,6 +49,17 @@ public class AdjacencyMatrixGraph<T> implements Graph<T>{
 			return false;
 		}
 		
-		return edges[u][v];
+		return edges[u][v] != 0;
+	}
+	
+	private void SetupEdges()
+	{
+		for(int i = 0; i < this.vertices.length; i++)
+		{
+			for(int j = 0; i < this.vertices.length; j++)
+			{
+				edgeList.add(new Edge(this.vertices[i], this.vertices[j], edges[i][j]));
+			}
+		}
 	}
 }

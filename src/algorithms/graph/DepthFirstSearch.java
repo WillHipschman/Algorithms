@@ -3,7 +3,7 @@ package algorithms.graph;
 import datastructures.graph.AdjacencyListGraph;
 import datastructures.graph.AdjacencyMatrixGraph;
 import datastructures.graph.Graph;
-import datastructures.graph.GraphNode;
+import datastructures.graph.Vertex;
 import datastructures.graph.GraphType;
 import datastructures.graph.VisitedState;
 import util.commands.Command;
@@ -15,9 +15,9 @@ public class DepthFirstSearch {
 	// O(V + E) = O(V^2)
 	public static <T> void DFS(
 			Graph<T> graph,
-			Command<GraphNode<T>> discoverAction,
-			Command<GraphNode<T>> visitAction,
-			Command<GraphNode<T>> finishAction)
+			Command<Vertex<T>> discoverAction,
+			Command<Vertex<T>> visitAction,
+			Command<Vertex<T>> finishAction)
 	{		
 		DepthFirstSearch.time = 0;
 		
@@ -43,10 +43,10 @@ public class DepthFirstSearch {
 	
 	private static <T> void DFSVisit(
 			Graph<T> graph,
-			GraphNode<T> node,
-			Command<GraphNode<T>> discoverAction,
-			Command<GraphNode<T>> visitAction,
-			Command<GraphNode<T>> finishAction)
+			Vertex<T> node,
+			Command<Vertex<T>> discoverAction,
+			Command<Vertex<T>> visitAction,
+			Command<Vertex<T>> finishAction)
 	{
 		if(graph instanceof AdjacencyMatrixGraph<?>)
 		{
@@ -61,10 +61,10 @@ public class DepthFirstSearch {
 	
 	private static <T> void DFSVisit(
 			AdjacencyListGraph<T> graph,
-			GraphNode<T> node,
-			Command<GraphNode<T>> discoverAction,
-			Command<GraphNode<T>> visitAction,
-			Command<GraphNode<T>> finishAction)
+			Vertex<T> node,
+			Command<Vertex<T>> discoverAction,
+			Command<Vertex<T>> visitAction,
+			Command<Vertex<T>> finishAction)
 	{
 		DepthFirstSearch.time++;
 		node.discoveryTime = DepthFirstSearch.time;
@@ -81,7 +81,7 @@ public class DepthFirstSearch {
 
 		visitAction.Run(node);;
 		
-		GraphNode<T> current = node.adjList.head.data;
+		Vertex<T> current = node.adjList.head.data;
 		while(current != null)
 		{
 			if(current.state == VisitedState.UNDISCOVERED)
@@ -99,10 +99,10 @@ public class DepthFirstSearch {
 	
 	private static <T> void DFSVisit(
 			AdjacencyMatrixGraph<T> graph,
-			GraphNode<T> node,
-			Command<GraphNode<T>> discoverAction,
-			Command<GraphNode<T>> visitAction,
-			Command<GraphNode<T>> finishAction)
+			Vertex<T> node,
+			Command<Vertex<T>> discoverAction,
+			Command<Vertex<T>> visitAction,
+			Command<Vertex<T>> finishAction)
 	{
 		DepthFirstSearch.time++;
 		node.discoveryTime = DepthFirstSearch.time;
@@ -120,9 +120,9 @@ public class DepthFirstSearch {
 		
 		for(int i = 0; i < graph.edges.length; i++)
 		{
-			if(i != node.vertex && graph.edges[node.vertex][i] == true)
+			if(i != node.vertex && graph.IsEdge(node.vertex, i))
 			{
-				GraphNode<T> current = graph.GetVertices()[i];
+				Vertex<T> current = graph.GetVertices()[i];
 				if(current.state == VisitedState.UNDISCOVERED)
 				{
 					current.predecessor = node;
