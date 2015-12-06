@@ -6,14 +6,18 @@ import datastructures.graph.Graph;
 import datastructures.graph.GraphNode;
 import datastructures.graph.GraphType;
 import datastructures.graph.VisitedState;
-import util.Command;
+import util.commands.Command;
 
 public class DepthFirstSearch {
 
 	private static int time = 0;
 	
 	// O(V + E) = O(V^2)
-	public static <T> void DFS(Graph<T> graph, Command<GraphNode<T>> visit)
+	public static <T> void DFS(
+			Graph<T> graph,
+			Command<GraphNode<T>> discoverAction,
+			Command<GraphNode<T>> visitAction,
+			Command<GraphNode<T>> finishAction)
 	{		
 		DepthFirstSearch.time = 0;
 		
@@ -27,7 +31,7 @@ public class DepthFirstSearch {
 		{
 			if(graph.GetVertices()[i].state == VisitedState.UNDISCOVERED)
 			{
-				DFSVisit(graph, graph.GetVertices()[i], visit);
+				DFSVisit(graph, graph.GetVertices()[i], discoverAction, visitAction, finishAction);
 			}
 		}
 		
@@ -40,15 +44,17 @@ public class DepthFirstSearch {
 	private static <T> void DFSVisit(
 			Graph<T> graph,
 			GraphNode<T> node,
-			Command<GraphNode<T>> visit)
+			Command<GraphNode<T>> discoverAction,
+			Command<GraphNode<T>> visitAction,
+			Command<GraphNode<T>> finishAction)
 	{
 		if(graph instanceof AdjacencyMatrixGraph<?>)
 		{
-			DFSVisit((AdjacencyMatrixGraph<T>)graph, node, visit);
+			DFSVisit((AdjacencyMatrixGraph<T>)graph, node, discoverAction, visitAction, finishAction);
 		}
 		if(graph instanceof AdjacencyListGraph<?>)
 		{
-			DFSVisit((AdjacencyListGraph<T>)graph, node, visit);
+			DFSVisit((AdjacencyListGraph<T>)graph, node, discoverAction, visitAction, finishAction);
 		}
 	
 	}
@@ -56,7 +62,9 @@ public class DepthFirstSearch {
 	private static <T> void DFSVisit(
 			AdjacencyListGraph<T> graph,
 			GraphNode<T> node,
-			Command<GraphNode<T>> visit)
+			Command<GraphNode<T>> discoverAction,
+			Command<GraphNode<T>> visitAction,
+			Command<GraphNode<T>> finishAction)
 	{
 		DepthFirstSearch.time++;
 		node.discoveryTime = DepthFirstSearch.time;
@@ -68,9 +76,10 @@ public class DepthFirstSearch {
 		else
 		{
 			node.state = VisitedState.DISCOVERED;
+			discoverAction.Run(node);
 		}
 
-		visit.Run(node);;
+		visitAction.Run(node);;
 		
 		GraphNode<T> current = node.adjList.head.data;
 		while(current != null)
@@ -78,20 +87,22 @@ public class DepthFirstSearch {
 			if(current.state == VisitedState.UNDISCOVERED)
 			{
 				current.predecessor = node;
-				DFSVisit(graph, current, visit);
+				DFSVisit(graph, current, discoverAction, visitAction, finishAction);
 			}
 		}
 		
 		DepthFirstSearch.time++;
 		node.finishTime = DepthFirstSearch.time;
-		node.state = VisitedState.VISITED;
-	
+		node.state = VisitedState.FINISHED;
+		finishAction.Run(node);
 	}
 	
 	private static <T> void DFSVisit(
 			AdjacencyMatrixGraph<T> graph,
 			GraphNode<T> node,
-			Command<GraphNode<T>> visit)
+			Command<GraphNode<T>> discoverAction,
+			Command<GraphNode<T>> visitAction,
+			Command<GraphNode<T>> finishAction)
 	{
 		DepthFirstSearch.time++;
 		node.discoveryTime = DepthFirstSearch.time;
@@ -105,7 +116,7 @@ public class DepthFirstSearch {
 			node.state = VisitedState.DISCOVERED;
 		}
 
-		visit.Run(node);;
+		visitAction.Run(node);;
 		
 		for(int i = 0; i < graph.edges.length; i++)
 		{
@@ -115,13 +126,14 @@ public class DepthFirstSearch {
 				if(current.state == VisitedState.UNDISCOVERED)
 				{
 					current.predecessor = node;
-					DFSVisit(graph, current, visit);
+					DFSVisit(graph, current, discoverAction, visitAction, finishAction);
 				}
 			}
 		}
 		
 		DepthFirstSearch.time++;
 		node.finishTime = DepthFirstSearch.time;
-		node.state = VisitedState.VISITED;
+		node.state = VisitedState.FINISHED;
+		finishAction.Run(node);
 	}
 }

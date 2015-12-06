@@ -4,5 +4,5 @@ public enum VisitedState {
 
 	UNDISCOVERED,
 	DISCOVERED,
-	VISITED
+	FINISHED
 }

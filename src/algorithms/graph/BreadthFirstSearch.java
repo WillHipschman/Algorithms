@@ -6,7 +6,7 @@ import datastructures.graph.GraphNode;
 import datastructures.graph.VisitedState;
 import datastructures.list.Node;
 import datastructures.list.Queue;
-import util.Command;
+import util.commands.Command;
 
 public class BreadthFirstSearch {
 	
@@ -14,7 +14,7 @@ public class BreadthFirstSearch {
 	public static <T> void BFS(AdjacencyMatrixGraph<T> graph, GraphNode<T> node, Command<GraphNode<T>> visit)
 	{
 		Queue<GraphNode<T>> toProcess = new Queue<GraphNode<T>>();	
-		node.state = VisitedState.VISITED;
+		node.state = VisitedState.FINISHED;
 		toProcess.Enqueue(node);
 	
 		while(!toProcess.IsEmpty())
@@ -27,10 +27,10 @@ public class BreadthFirstSearch {
 				{
 					GraphNode<T> current = graph.GetVertices()[i];
 					
-					if(current.state != VisitedState.VISITED)
+					if(current.state != VisitedState.FINISHED)
 					{
 						visit.Run(current);
-						current.state = VisitedState.VISITED;
+						current.state = VisitedState.FINISHED;
 						toProcess.Enqueue(current);
 					}
 				}
@@ -51,16 +51,16 @@ public class BreadthFirstSearch {
 			
 			while(current != null)
 			{
-				if(current.data.state != VisitedState.VISITED)
+				if(current.data.state != VisitedState.FINISHED)
 				{
 					visit.Run(current.data);
-					current.data.state = VisitedState.VISITED;
+					current.data.state = VisitedState.FINISHED;
 					toProcess.Enqueue(current.data);
 				}
 				current = current.next;
 			}
 			
-			prev.state = VisitedState.VISITED;
+			prev.state = VisitedState.FINISHED;
 		}
 	}
 }
