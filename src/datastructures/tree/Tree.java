@@ -7,6 +7,6 @@ public interface Tree<T extends Comparable<T>> {
 	public T Maximum();
 	public void Insert(T t);
 	public void Delete(T t);
-	
+	public TreeNode Root();
 	
 }
